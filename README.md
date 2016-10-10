@@ -1,8 +1,17 @@
-Running container
----------------------
+Unofficial Autodesk License Manager FLEXlm® Network Server container.
+=====================================================================
+[![Docker Automated buil](https://img.shields.io/docker/automated/haysclark/adlmflexnetserver.svg?maxAge=2592000)](https://hub.docker.com/r/haysclark/adlmflexnetserver/builds/)
 
-    docker run -d -h [LICENSE_HOSTNAME] --mac-address="[LICENSE_MAC_ADRESS]" \
-    -v [FLEXLM_LICENSE_PATH]:/var/flexlm haysclark/adlmflexnetserver
+A simple Docker container that runs Autodesk License Manager FLEXlm® Network Server.
+
+Usage
+-----
+
+    docker run -d -t --mac-address="[LICENSE_MAC_ADRESS]" \
+    -h [LICENSE_HOSTNAME] \
+    -v [FLEXLM_LICENSE_PATH]:/var/flexlm \
+    -p 2080:2080 -p 27000-27009:27000-27009 \
+    haysclark/adlmflexnetserver
 
 All arguments passed to the container are forwarded to 'lmgrd', thus you can provide your own license path or logging path by using the standard arguments.
 
