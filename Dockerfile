@@ -32,6 +32,6 @@ ENV PATH="${PATH}:/opt/flexnetserver/"
 # do not use ROOT user
 USER lmadmin
 
-# lmgrd -z flag is required to 'Run in foreground.' so that
-# Docker will not start sleeping regardless flags.
-ENTRYPOINT ["lmgrd", "-z"]
+COPY entrypoint.sh /
+
+ENTRYPOINT ["/entrypoint.sh"]
