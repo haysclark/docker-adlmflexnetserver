@@ -41,4 +41,4 @@ USER lmadmin
 ENTRYPOINT ["lmgrd", "-z"]
 
 # append additional aguments to 'lmgrd', unless user overrides
-CMD ["-l", "/var/log/flexlm/lmgrd.log", "-c", "/var/flexlm/mayaserver.lic"]
+CMD ["-l", "/var/log/flexlm/lmgrd.log", "-c", "/var/flexlm/adsk_server.lic"]

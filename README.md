@@ -1,21 +1,25 @@
 Unofficial Autodesk License Manager FLEXlm® Network Server container.
 =====================================================================
-[![Docker Automated buil](https://img.shields.io/docker/automated/haysclark/adlmflexnetserver.svg?maxAge=2592000)](https://hub.docker.com/r/haysclark/adlmflexnetserver/builds/)
+[![Docker Automated buil](https://img.shields.io/docker/automated/haysclark/adlmflexnetserver.svg?maxAge=2592000)](https://hub.docker.com/r/haysclark/adlmflexnetserver/builds/) [![Docker Stars](https://img.shields.io/docker/stars/haysclark/adlmflexnetserver.svg?maxAge=2592000)](https://hub.docker.com/r/haysclark/adlmflexnetserver/) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
 A simple Docker container that runs Autodesk License Manager FLEXlm® Network Server.
 
 Usage
 -----
 
-    docker run -d -t --mac-address="[LICENSE_MAC_ADRESS]" \
+    docker run -d -t --mac-address="[LICENSE_MAC_ADDRESS]" \
     -h [LICENSE_HOSTNAME] \
-    -v [FLEXLM_LICENSE_PATH]:/var/flexlm \
+    -v [LOCAL_LICENSE_PATH]:/var/flexlm/adsk_server.lic:ro \
     -p 2080:2080 -p 27000-27009:27000-27009 \
     haysclark/adlmflexnetserver
 
-All arguments passed to the container are forwarded to 'lmgrd', thus you can provide your own license path or logging path by using the standard arguments.
+By default, the container expects to find a FlexLM license here: __/var/flexlm/adsk_server.lic__ and _lmgrd_ with log to this file: __/var/log/flexlm/lmgrd.log__.  Internally, the container is running _lmgrd_ with the following command:
 
-> Note: 'lmgrd' is ALWAYS passed the '-z' argument so that it runs in the Foreground. Otherwise, Docker believes the task is over and the container will 'stop' immediately.
+    lmgrd -z -l /var/log/flexlm/lmgrd.log -c /var/flexlm/adsk_server.lic
+
+All arguments passed to the container are forwarded to _lmgrd_. Thus you can provide your logging path or license path by using the standard _-l_ and _-c_ flags, or any other arguments that _lmgrd_ expects. Also, if you do provide any custom arguments the container then you will need to include a license flag and optionally a logging flag, as the default values are set up in an 'All or Nothing' configuration.
+
+> Note: The container ALWAYS passes the '-z' flag to _lmgrd_ so that it runs in the Foreground. Otherwise, Docker believes the task is over, and the container will 'stop' immediately.
 
 Troubleshooting
 ------------------
