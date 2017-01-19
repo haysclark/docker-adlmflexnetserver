@@ -12,4 +12,4 @@
 # 0.9.0 (2016-10-10)
 
 ### Initial Release
-- A Docker container for running _lmstat_.
+- A Docker container for running _lmgrd_.
