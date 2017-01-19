@@ -32,6 +32,7 @@ ENV PATH="${PATH}:/opt/flexnetserver/"
 # do not use ROOT user
 USER lmadmin
 
-COPY entrypoint.sh /
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY utils.sh /usr/local/bin/utils.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
