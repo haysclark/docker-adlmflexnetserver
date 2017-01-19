@@ -15,14 +15,9 @@ RUN yum update -y && yum install -y \
     wget && \
     yum clean all
 
-RUN echo "Downloading..." && \
-    mkdir -p ${TEMP_PATH} && \
-    cd ${TEMP_PATH} && \
-    wget ${NLM_URL} -q && \
-    tar -zxvf *.tar.gz && \
-    echo "Installing..." && \
-    rpm -vhi *.rpm && \
-    echo "Install complete!" && \
+RUN mkdir -p ${TEMP_PATH} && cd ${TEMP_PATH} && \
+    wget --progress=bar:force ${NLM_URL} && \
+    tar -zxvf *.tar.gz && rpm -vhi *.rpm && \
     rm -rf ${TEMP_PATH}
 
 # lmadmin is required for -2 -p flag support
@@ -41,13 +36,9 @@ ENV PATH="${PATH}:/opt/flexnetserver/"
 # do not use ROOT user
 USER lmadmin
 
-# lmgrd -z flag is required to 'Run in foreground.' so that
-# Docker will not start sleeping regardless flags.
-ENTRYPOINT ["lmgrd", "-z"]
+COPY entrypoint.sh /
 
-# default arguments for 'lmgrd', note '-z' is ALWAYS added
+ENTRYPOINT ["/entrypoint.sh"]
+
+# append additional aguments to 'lmgrd', unless user overrides
 CMD ["-l", "/var/log/flexlm/lmgrd.log", "-c", "/var/flexlm/mayaserver.lic"]
-
-# if you are unsure if the server is running correctly, you can log
-# into the container with ```docker exec -it CONTAINER_ID /bin/bash```
-# once in bash you can run: ```lmutil lmstat -a -c LICENSE_PATH```
