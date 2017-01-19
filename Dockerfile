@@ -24,11 +24,7 @@ RUN mkdir -p ${TEMP_PATH} && cd ${TEMP_PATH} && \
 RUN groupadd -r lmadmin && \
     useradd -r -g lmadmin lmadmin
 
-RUN mkdir -p /var/log/flexlm && \
-    touch /var/log/flexlm/lmgrd.log && \
-    chown lmadmin /var/log/flexlm/lmgrd.log
-
-VOLUME ["/var/flexlm", "/var/log/flexlm"]
+VOLUME ["/var/flexlm"]
 
 # add the flexlm commands to $PATH
 ENV PATH="${PATH}:/opt/flexnetserver/"
@@ -39,6 +35,3 @@ USER lmadmin
 # lmgrd -z flag is required to 'Run in foreground.' so that
 # Docker will not start sleeping regardless flags.
 ENTRYPOINT ["lmgrd", "-z"]
-
-# append additional aguments to 'lmgrd', unless user overrides
-CMD ["-l", "/var/log/flexlm/lmgrd.log", "-c", "/var/flexlm/adsk_server.lic"]
