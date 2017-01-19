@@ -17,12 +17,24 @@ By default, the container expects to find a FlexLM license here: __/var/flexlm/a
 
     lmgrd -z -l /var/log/flexlm/lmgrd.log -c /var/flexlm/adsk_server.lic
 
-All arguments passed to the container are forwarded to _lmgrd_. Thus you can provide your logging path or license path by using the standard _-l_ and _-c_ flags, or any other arguments that _lmgrd_ expects. Also, if you do provide any custom arguments the container then you will need to include a license flag and optionally a logging flag, as the default values are set up in an 'All or Nothing' configuration.
+### Custom Arguments
+
+All additional arguments passed to the container are forwarded to _lmgrd_; however, the default logging and license flags will not be included.
 
 > Note: The container ALWAYS passes the '-z' flag to _lmgrd_ so that it runs in the Foreground. Otherwise, Docker believes the task is over, and the container will 'stop' immediately.
 
+Here is a real world example of overriding the default license path by providing the _-c_ flag and license path.  It's important to understand that _lmgrd_ will not log because the logging flag has been omitted.
+
+    docker run --name flexlm --detach --restart=always \
+    --mac-address="12:34:56:ab:cd:ef" \
+    -h host_name \
+    -v /source/path.lic:/var/flexlm/lic.lic:ro \
+    -p 2080:2080 -p 27000-27009:27000-27009 \
+    haysclark/adlmflexnetserver \
+    -c /var/flexlm/lic.lic
+
 Troubleshooting
-------------------
+---------------
 If you are unsure if the server is running correctly, you can log into the container.
 
     docker exec -it CONTAINER_ID /bin/bash
