@@ -1,8 +1,8 @@
-Unofficial Autodesk License Manager FLEXlm® Network Server container
-====================================================================
-[![Docker Automated buil](https://img.shields.io/docker/automated/haysclark/adlmflexnetserver.svg?maxAge=2592000)](https://hub.docker.com/r/haysclark/adlmflexnetserver/builds/) [![Docker Stars](https://img.shields.io/docker/stars/haysclark/adlmflexnetserver.svg?maxAge=2592000)](https://hub.docker.com/r/haysclark/adlmflexnetserver/) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+ADLMFlexNetServer
+=================
+[![Docker Automated buil](https://img.shields.io/docker/automated/haysclark/adlmflexnetserver.svg?maxAge=2592000)](https://hub.docker.com/r/haysclark/adlmflexnetserver/builds/) [![Docker Stars](https://img.shields.io/docker/stars/haysclark/adlmflexnetserver.svg?maxAge=2592000)](https://hub.docker.com/r/haysclark/adlmflexnetserver/) [![](https://img.shields.io/docker/pulls/haysclark/adlmflexnetserver.svg)](https://hub.docker.com/r/haysclark/adlmflexnetserver 'DockerHub') [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
-A simple Docker container that runs Autodesk License Manager FLEXlm® Network Server.
+ > Unofficial Autodesk License Manager FLEXlm® Network Server container.
 
 Usage
 -----
@@ -11,7 +11,7 @@ To use this container, simply treat it as if you were calling _lmgrd_ directly. 
 
 The container does expect the user to map a local license file to within the __/var/flexlm__ directory.
 
-    docker run -d -t --mac-address="[LICENSE_MAC_ADDRESS]" \
+    docker run -d --mac-address="[LICENSE_MAC_ADDRESS]" \
     -h [LICENSE_HOSTNAME] \
     -v [LOCAL_LICENSE_PATH]:/var/flexlm/adsk_server.lic:ro \
     -p 2080:2080 -p 27000-27009:27000-27009 \
@@ -20,7 +20,7 @@ The container does expect the user to map a local license file to within the __/
 
  Alternatively, you can map a local folder containing multiple keys to the __/var/flexlm__ directory.
 
-    docker run -d -t --mac-address="[LICENSE_MAC_ADDRESS]" \
+    docker run -d --mac-address="[LICENSE_MAC_ADDRESS]" \
     -h [LICENSE_HOSTNAME] \
     -v [LOCAL_LICENSE_FOLDER_PATH]:/var/flexlm \
     -p 2080:2080 -p 27000-27009:27000-27009 \
@@ -33,7 +33,7 @@ Docker's built-in logging functionality will collect the stdout/stderr generated
 
     docker logs [CONTAINER_ID]
 
-Thus it's recommended you do NOT use the _-l_ flag to log to a file, doing so will cause your Docker logs to be empty.
+Thus it's recommended you do NOT use the '-l' flag to log to a file, doing so will cause your Docker logs to be empty.  Additionally, avoid using the '-t' flag when using the 'run' command, enabling TTL support will cause extra line breaks in your Docker logs.
 
 Troubleshooting
 ---------------
