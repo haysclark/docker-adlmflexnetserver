@@ -1,15 +1,26 @@
-
 FROM centos:centos6
-
 MAINTAINER hays.clark@gmail.com
 
+#########################################
+##             CONSTANTS               ##
+#########################################
+# path for Network Licence Manager
 ARG NLM_URL=http://download.autodesk.com/us/support/files/network_license_manager/11_13_1_2_v2/Linux/nlm11.13.1.2_ipv4_ipv6_linux64.tar.gz
+# path for temporary files
 ARG TEMP_PATH=/tmp/flexnetserver
 
-EXPOSE 2080
-EXPOSE 27000-27009
+#########################################
+##        ENVIRONMENTAL CONFIG         ##
+#########################################
+# add the flexlm commands to $PATH
+ENV PATH="${PATH}:/opt/flexnetserver/"
 
-# Ideally this list of dependancies will be trimmed down
+#########################################
+##         RUN INSTALL SCRIPT          ##
+#########################################
+ADD /files /usr/local/bin
+
+# ideally redhat-lsb could be trimmed down
 RUN yum update -y && yum install -y \
     redhat-lsb \
     wget && \
@@ -24,15 +35,19 @@ RUN mkdir -p ${TEMP_PATH} && cd ${TEMP_PATH} && \
 RUN groupadd -r lmadmin && \
     useradd -r -g lmadmin lmadmin
 
+#########################################
+##              VOLUMES                ##
+#########################################
 VOLUME ["/var/flexlm"]
 
-# add the flexlm commands to $PATH
-ENV PATH="${PATH}:/opt/flexnetserver/"
+#########################################
+##            EXPOSE PORTS             ##
+#########################################
+EXPOSE 2080
+EXPOSE 27000-27009
 
 # do not use ROOT user
 USER lmadmin
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY utils.sh /usr/local/bin/utils.sh
-
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# no CMD, use container as if 'lmgrd'
