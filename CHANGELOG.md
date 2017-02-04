@@ -1,11 +1,19 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/haysclark/docker-adlmflexnetserver/compare/v0.9.2...1.0.0) (2017-02-04)
+
+### Features
+- reduced container size by ~250MB
+- reorganized repo
+- cleaned up Dockerfile
+
 <a name="0.9.2"></a>
-# [](https://github.com/haysclark/adlmflexnetserver/compare/v0.9.1...0.9.2) (2017-01-19)
+# [0.9.2](https://github.com/haysclark/docker-adlmflexnetserver/compare/v0.9.1...0.9.2) (2017-01-19)
 
 ### Features
 - new entrypoint.sh which makes custom service startup easier
 
 <a name="0.9.1"></a>
-## [0.9.1](https://github.com/haysclark/adlmflexnetserver/compare/v0.9.0...v0.9.1) (2017-01-18)
+## [0.9.1](https://github.com/haysclark/docker-adlmflexnetserver/compare/v0.9.0...v0.9.1) (2017-01-18)
 
 ### Improvements
 - Eliminating all default arguments to fix both the logging issues and removing all magical paths and values. Props to @hyperknot
