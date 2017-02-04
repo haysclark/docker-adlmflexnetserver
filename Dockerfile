@@ -20,9 +20,8 @@ ENV PATH="${PATH}:/opt/flexnetserver/"
 #########################################
 ADD /files /usr/local/bin
 
-# ideally redhat-lsb could be trimmed down
 RUN yum update -y && yum install -y \
-    redhat-lsb \
+    redhat-lsb-core \
     wget && \
     yum clean all
 
