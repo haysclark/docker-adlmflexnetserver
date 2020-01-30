@@ -2,9 +2,9 @@ FROM centos:centos6
 MAINTAINER hays.clark@gmail.com
 
 #########################################
-##             CONSTANTS               ##
+##        BUILD-TIME VARIABLES        ##
 #########################################
-# path for Network Licence Manager
+# url for Network Licence Manager
 ARG NLM_URL=https://knowledge.autodesk.com/sites/default/files/file_downloads/nlm11.16.2.0_ipv4_ipv6_linux64.tar.gz
 # path for temporary files
 ARG TEMP_PATH=/tmp/flexnetserver
