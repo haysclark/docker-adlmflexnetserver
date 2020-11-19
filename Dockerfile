@@ -1,5 +1,4 @@
 FROM centos:centos6
-MAINTAINER hays.clark@gmail.com
 
 #########################################
 ##        BUILD-TIME VARIABLES        ##
@@ -13,22 +12,20 @@ ARG TEMP_PATH=/tmp/flexnetserver
 ##        ENVIRONMENTAL CONFIG         ##
 #########################################
 # add the flexlm commands to $PATH
-ENV PATH="${PATH}:/opt/flexnetserver/"
+ENV PATH="$PATH:/opt/flexnetserver/"
 
 #########################################
 ##         RUN INSTALL SCRIPT          ##
 #########################################
-ADD /files /usr/local/bin
+COPY /files /usr/local/bin
 
-RUN yum update -y && yum install -y \
-    redhat-lsb-core \
-    wget && \
-    yum clean all
+RUN yum install -y redhat-lsb-core-4.0 wget-1.12 && yum clean all
 
-RUN mkdir -p ${TEMP_PATH} && cd ${TEMP_PATH} && \
-    wget --progress=bar:force ${NLM_URL} && \
-    tar -zxvf *.tar.gz && rpm -vhi *.rpm && \
-    rm -rf ${TEMP_PATH}
+WORKDIR $TEMP_PATH
+RUN wget --progress=bar:force -- $NLM_URL
+RUN tar -zxvf ./*.tar.gz
+RUN rpm -vhi ./*.rpm
+RUN rm -rf $TEMP_PATH
 
 # lmadmin is required for -2 -p flag support
 RUN groupadd -r lmadmin && \
