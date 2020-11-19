@@ -1,0 +1,33 @@
+name: Test and Release
+
+# Run the workflow when a Pull Request is opened or when changes are pushed to main
+on:
+ pull_request:
+ push:
+  branches: [ main ]
+
+jobs:
+ test:
+  runs-on: ubuntu-latest
+  steps:
+  # Fetch the latest commit
+  - name: Checkout
+    uses: actions/checkout@v2
+
+  # Run tests
+  - name: Hadolint Action
+    uses: brpaz/hadolint-action@v1.1.0
+
+ release:
+  # Only release on push to main
+  if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  runs-on: ubuntu-latest
+  # Waits for test jobs for each Node.js version to complete
+  needs: [test]
+  steps:
+  - name: Checkout
+    uses: actions/checkout@v2
+  - name: Release
+    run: npx -p @semantic-release/changelog -p @semantic-release/git -p semantic-release semantic-release
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

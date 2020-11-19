@@ -1,0 +1,11 @@
+README.md
+LICENSE
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+Dockerfile
+.dockerignore
+.git
+.github/
+.gitignore
+.releaserc

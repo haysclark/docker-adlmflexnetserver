@@ -1,0 +1,25 @@
+{
+  "branches": [
+    "main"
+  ],
+  "repositoryUrl": "git@github.com:haysclark/docker-adlmflexnetserver.git",
+  "tagFormat": "${version}",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "CHANGELOG.md"
+        ]
+      }
+    ]
+  ]
+}
