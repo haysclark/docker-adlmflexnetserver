@@ -61,10 +61,19 @@ Image Variants
 
 ### haysclark/adlmflexnetserver:<version>
 
-| Version    | Description                                                           |
-|------------|-----------------------------------------------------------------------|
-| v1.0.0     | Uses NLM 11.13.1.2 (support pre-2020 products)                        |
-| >= v1.0.1  | Uses NLM 11.16.2.0 (required for 2020 products / backwards compatible |
+#### NLM
+
+| Version   | Description                                                           |
+| --------- | --------------------------------------------------------------------- |
+| >= v1.0.1 | Uses NLM 11.16.2.0 (required for 2020 products / backwards compatible |
+| v1.0.0    | Uses NLM 11.13.1.2 (support pre-2020 products)                        |
+
+#### CentOS
+
+| Version   | Description                         |
+| --------- | ----------------------------------- |
+| >= v1.1.0 | Uses CentOS7 (EOL on June 2024)     |
+| < v1.1.0  | Uses CentOS6 (EOL on November 2020) |
 
 Building a custom Docker image
 ------------------------------
