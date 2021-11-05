@@ -1,4 +1,4 @@
-FROM centos:centos6
+FROM centos:centos7
 
 #########################################
 ##        BUILD-TIME VARIABLES        ##
@@ -19,7 +19,7 @@ ENV PATH="$PATH:/opt/flexnetserver/"
 #########################################
 COPY /files /usr/local/bin
 
-RUN yum install -y redhat-lsb-core-4.0 wget-1.12 && yum clean all
+RUN yum install -y redhat-lsb-core-4.1 wget-1.14 && yum clean all
 
 WORKDIR $TEMP_PATH
 RUN wget --progress=bar:force -- $NLM_URL
